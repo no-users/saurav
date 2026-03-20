@@ -1,0 +1,971 @@
+/* --- Global Settings --- */
+:root {
+    --nav-blue: #3949ab;
+    --sub-nav: #283593;
+    --bg-color: #f0f2f5;
+    --text-white: #ffffff;
+    --modal-bg: #ffffff;      /* Solid White */
+    --modal-text: #1a1a2e;    /* Dark Blue Text */
+    --modal-label: #3949ab;   /* Indigo Labels (Safed par accha dikhega) */
+    --qr-bg: #f0f2f5;
+}
+
+/* Dark Mode Colors */
+.dark-mode {
+    --bg-color: #121212;
+    --text-white: #e0e0e0;
+   --modal-bg: #121420;      /* Solid Deep Charcoal */
+    --modal-text: #ffffff;    /* White Text */
+    --modal-label: #00d2ff;   /* Cyan Labels (Dark par chamkega) */
+    --qr-bg: #ffffff;
+}
+
+body {
+    padding-bottom: 50px; 
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    transition: 0.3s;
+}
+
+
+/*  dark and light mode togle   */
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(15deg); /* Thoda sa teercha hoga premium lagega */
+}
+
+#theme-icon {
+    font-size: 18px;
+    #theme-icon {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+}
+/* --- Navbar Styling --- */
+.news-ticker {
+    position: fixed; /* Ise screen par ek jagah fix kar diya */
+    bottom: 0;       /* Sabse niche chipka diya */
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 38, 0.95); /* Halka transparent dark color */
+    backdrop-filter: blur(5px);
+    border-top: 2px solid var(--nav-blue); /* Ab border upar hogi */
+    border-bottom: none;
+    z-index: 2000;   /* Taaki ye cards ke upar rahe */
+    height: 30px;
+}
+
+/* Dashboard container ko thoda margin dijiye */
+/* Taaki niche wala content ticker ke piche na chhup jaye */
+
+/* --- News Ticker Fixed --- */
+.news-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 38, 0.98); /* Thoda aur dark */
+    backdrop-filter: blur(10px);
+    border-top: 2px solid var(--nav-blue);
+    z-index: 2000;
+    height: 35px;
+    
+    /* YE JODIYE: Taaki Title aur News ek line mein rahein */
+    display: flex; 
+    align-items: center;
+    overflow: hidden;
+}
+
+.ticker-title {
+    background: #ff3c73;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-weight: bold;
+    font-size: 11px;
+    white-space: nowrap; /* Title ko tootne mat dena */
+    z-index: 10; /* Title news ke upar rahe */
+    position: relative;
+}
+
+.ticker-content {
+    flex: 1; /* Bachi hui saari jagah ye lega */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-content p {
+    display: inline-block;
+    white-space: nowrap; /* Text ko ek lambi train bana do */
+    padding-left: 100%; /* Screen ke bilkul bahar se shuru karega */
+    animation: scrollNews 25s linear infinite; /* 25 second ki smooth raftaar */
+    margin: 0;
+    color: #00d2ff;
+    font-size: 13px;
+}
+
+/* Animation ka rasta */
+@keyframes scrollNews {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+/* Mouse le jaane par rok do (Pause on Hover) */
+.news-ticker:hover .ticker-content p {
+    animation-play-state: paused;
+}
+
+.navbar {
+    background: var(--nav-blue);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 60px; /* Ek fix height rakhein */
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px; /* Text thoda chota taaki jagah bane */
+}
+
+/* User Profile ko sundar banane ke liye */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.user-profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/*    */
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.08); /* Halka transparent glass effect */
+    padding: 6px 12px;
+    border-radius: 50px; /* Bilkul round pill shape */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover karne par chamak (Glow) */
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+}
+
+.profile-img-container img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--nav-blue);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column; /* Naam ke niche ID dikhane ke liye */
+    line-height: 1.2;
+}
+
+#userName {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+}
+
+.user-info small {
+    font-size: 10px;
+    color: #bbb;
+}
+
+
+
+
+.add-money-btn {
+    background: #00bcd4;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.user-profile img {
+    border-radius: 50%;
+    border: 2px solid var(--accent-green);
+}
+
+#userName {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.sub-nav {
+    background: var(--sub-nav);
+    color: white;
+    padding: 8px 25px;
+    font-size: 13px;
+    display: flex;
+    gap: 20px;
+}
+/* HTML mein jo class hai wahi use karein */
+.search-container input {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    width: 115px;
+    outline: none;
+    transition: all 0.4s ease;
+}
+
+/* Click karne par bada hone ka effect */
+.search-container input:focus {
+    width: 140px;
+    background: white;
+    color: black;
+    box-shadow: 0 0 15px #3949ab;
+}
+
+.search-container input::placeholder {
+    color: rgba(12, 12, 12, 0.7);
+}
+
+/* --- Grid Layout (4 Cards per row) --- */
+.dashboard-container { padding: 25px; }
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+    gap: 15px; /* Spacing between cards */
+}
+
+/* --- Card Styling --- */
+.card {
+    display: flex; /* Icon left, Text right */
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+}
+
+/* Card mein transition jodiye taaki wo jhatke se move na ho */
+
+
+/* Jab mouse card par jaye (Hover) */
+.card:hover {
+    transform: translateY(-10px) scale(1.02); /* Thoda bada aur upar */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px var(--accent-color);
+    border-color: white; /* Border thodi chamkegi */
+}
+
+.icon-section {
+    font-size: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.text-section h4 { margin: 0; font-size: 14px; text-transform: uppercase; }
+.text-section p { margin: 5px 0 0; font-size: 12px; opacity: 0.9; }
+
+/* --- Individual Colors (Wahi colors jo image mein hain) --- */
+.purple { background: #5e35b1; }
+.pink   { background: #d81b60; }
+.teal   { background: #00897b; }
+.green  { background: #43a047; }
+.orange { background: #fb8c00; }
+.light-blue { background: #039be5; }
+.dark-green { background: #2e7d32; }
+.yellow { background: #fbc02d; }
+
+#theme-toggle {
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+/* Modal ka Background (Piche ka dhundhla hissa) */
+
+/* Modal (Parda) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 3000; /* Sabse upar */
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(31, 31, 30, 0.9);
+    backdrop-filter: blur(30px);
+}
+
+/* Modal Content (Asali Box) */
+.modal-content {
+    background-color: var(--modal-bg) !important;
+    color: var(--modal-text) !important;
+    border: 1px solid var(--modal-label) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    
+    /* Pehle se zyada solid look ke liye */
+    backdrop-filter: none !important; 
+    opacity: 1 !important;
+    margin: 10vh auto;
+    padding: 30px;
+    width: 400px;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    max-height: 85vh;
+    overflow-y: auto; /* Scrollbar yahan aayega */
+}
+
+/* Scrollbar Style */
+.modal-content::-webkit-scrollbar { width: 5px; }
+.modal-content::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 10px; }
+.modal-content {
+    max-height: 85vh;
+    
+    overflow-y: auto;
+}
+.qr-frame {
+    background: var(--qr-bg) !important;
+    padding: 10px;
+    border-radius: 12px;
+    display: inline-block;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+.input-field label, .input-box label {
+    color: var(--modal-label) !important;
+    font-weight: 600;
+}
+.input-box input {
+    background: rgba(128, 128, 128, 0.1) !important;
+    border: 1px solid rgba(128, 128, 128, 0.3) !important;
+    color: var(--modal-text) !important;
+}
+
+
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05); /* Halka glass effect */
+    border-radius: 50%; /* Ekdam gol */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #ff3c73;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Premium smooth timing */
+    border: 1px solid rgba(255, 60, 115, 0.2);
+    z-index: 10;
+}
+
+/* Hover Effect: Jab mouse upar jaye */
+.close-btn:hover {
+    background: #ff3c73;
+    color: white;
+    transform: rotate(90deg) scale(1.1); /* Ghumega aur thoda bada hoga */
+    box-shadow: 0 0 15px rgba(255, 60, 115, 0.5); /* Glowing effect */
+}
+
+/* Active Effect: Jab button dabayein */
+.close-btn:active {
+    transform: scale(0.9); /* Dabne par chota hoga (Real button feel) */
+}
+
+/*   pdf  downloard  button  */
+.download-btn {
+    background: linear-gradient(135deg, #05cd99 0%, #00a37b 100%); /* Gradient effect */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(5, 205, 153, 0.2); /* Soft shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effect: Jab user mouse le jaye */
+.download-btn:hover {
+    transform: translateY(-3px) scale(1.02); /* Thoda upar uthega aur bada hoga */
+    box-shadow: 0 15px 30px rgba(5, 205, 153, 0.4); /* Glow badh jayega */
+    background: linear-gradient(135deg, #06dfa6 0%, #00b88b 100%);
+}
+
+/* Icon Animation */
+.download-btn i {
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.download-btn:hover i {
+    transform: translateY(2px); /* Icon halka sa niche move karega "Download" feel dene ke liye */
+}
+
+/* Active Effect: Jab button dabayein */
+.download-btn:active {
+    transform: translateY(0) scale(0.95); /* Dabne par dabne ka ehsas */
+}
+
+
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); /* Premium Gradient */
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 20px rgba(0, 210, 255, 0.3); /* Button ke niche glow */
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect: Jab mouse button par jaye */
+.btn-submit:hover {
+    transform: translateY(-4px); /* Halka sa upar uthega */
+    box-shadow: 0 12px 25px rgba(0, 210, 255, 0.5); /* Glow badh jayega */
+    background: linear-gradient(135deg, #00e5ff 0%, #4a8df5 100%);
+}
+
+/* Active Effect: Jab click karein */
+.btn-submit:active {
+    transform: scale(0.96); /* Button dabne ka real feel */
+    box-shadow: 0 4px 10px rgba(0, 210, 255, 0.2);
+}
+
+/* Button ke andar chamak (Shine Effect) */
+.btn-submit::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+.btn-submit:hover::after {
+    left: 120%; /* Shine move karegi hover par */
+}
+
+/* UPI ID Box Styling */
+.upi-id-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px dashed rgba(0, 210, 255, 0.3);
+}
+
+.upi-id-box i {
+    cursor: pointer;
+    color: var(--accent-cyan);
+    transition: 0.3s;
+}
+
+.upi-id-box i:active { transform: scale(0.8); }
+
+/* UTR Validation (Green Border) */
+.valid-input {
+    border: 2px solid #43a047 !important; /* !important lagane se ye sabse upar rahega */
+    box-shadow: 0 0 10px rgba(67, 160, 71, 0.5) !important;
+    background: rgba(67, 160, 71, 0.1) !important; /* Halka green background bhi premium lagega */
+}
+/* Button Loading State */
+.btn-loading {
+    opacity: 0.7;
+    pointer-events: none; /* User dubara click na kar paye */
+}
+.user-history-card {
+    background: rgba(30, 30, 38, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-history-card h3 {
+    font-size: 16px;
+    color: #00d2ff;
+    margin-bottom: 20px;
+}
+
+.user-history-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-history-card th {
+    text-align: left;
+    color: #a3aed0;
+    font-size: 12px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.user-history-card td {
+    padding: 15px 10px;
+    color: white;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Status Tags for User */
+.status-tag {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+.status-pending { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+.status-approved { background: rgba(5, 205, 153, 0.2); color: #05cd99; }
+.status-rejected { background: rgba(238, 93, 80, 0.2); color: #e71c0a; }
+
+/*       wallet history             */
+
+
+/* Modal Background (Parda) */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px); z-index: 9999;
+}
+
+/* Modal Box */
+.modal-box.statement-box {
+  
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); background: #1e1e26;
+    width: 90%; max-width: 800px; border-radius: 20px;
+    padding: 30px; border: 1px solid #00d2ff;
+}
+
+/* Filter Section */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.filter-bar input {
+    background: #2a2a35;
+    border: 1px solid #444;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.apply-btn {
+    background: #4318ff; /* Premium Electric Blue */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(67, 24, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effect: Jab mouse upar jaye */
+.apply-btn:hover {
+    background: #3311db; /* Thoda dark shade */
+    transform: translateY(-2px); /* Halka sa upar uthega */
+    box-shadow: 0 8px 20px rgba(67, 24, 255, 0.4); /* Glow badh jayega */
+    letter-spacing: 0.5px; /* Text thoda failega premium look ke liye */
+}
+
+/* Active Effect: Jab click karein */
+.apply-btn:active {
+    transform: scale(0.96); /* Dabne ka real feeling */
+    box-shadow: 0 2px 10px rgba(67, 24, 255, 0.2);
+}
+
+/* Filter Icon Animation */
+.apply-btn i {
+    transition: 0.3s;
+    font-size: 12px;
+}
+
+.apply-btn:hover i {
+    transform: rotate(15deg) scale(1.2); /* Icon halka sa ghumega */
+}
+/* Table Scroll */
+.table-scroll { max-height: 400px; overflow-y: auto; margin-top: 15px; }
+
+/* Status Colors */
+.status-tag { padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+.status-APPROVED { background: rgba(5, 205, 153, 0.2); color: #05cd99; }
+.status-REJECTED { background: rgba(238, 93, 80, 0.2); color: #ee5d50; }
+.status-PENDING { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+
+/* Table Rows ke beech saans lene ki jagah (Spacing) */
+/* Table Layout */
+.statement-table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0 8px; /* Rows ke beech 8px ka gap - "Chipka" khatam! */
+    margin-top: 15px;
+}
+
+.statement-table th {
+    padding: 10px 15px;
+    color: #a3aed0;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.statement-table td {
+    background: rgba(255, 255, 255, 0.05); /* Halka glass effect */
+    padding: 18px 15px; /* Padding badhai taaki text chipka na lage */
+    font-size: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Rounded Corners for each row */
+.statement-table td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid rgba(255,255,255,0.05); }
+.statement-table td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid rgba(255,255,255,0.05); }
+
+
+/*     wallet last  */
+.premium-table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0 10px; /* Rows ke beech gap */
+}
+
+
+
+/* Headers ko thoda saaf aur chota karein */
+.premium-table th {
+    color: #a3aed0; font-size: 11px; text-transform: uppercase;
+    padding: 10px 15px; text-align: left;
+}
+
+/* Rows ko 'Card' jaisa look dena */
+.premium-table td {
+    background: rgba(255, 255, 255, 0.05); /* Card look */
+    padding: 18px 15px; /* Kafi sari padding taaki chipka na lage */
+    font-size: 14px; color: white;
+    transition: 0.3s;
+}
+/* Rounded corners for rows */
+.premium-table td:first-child { border-radius: 12px 0 0 12px; }
+.premium-table td:last-child { border-radius: 0 12px 12px 0; }
+
+.premium-table tr:hover td { background: rgba(255, 255, 255, 0.1); cursor: pointer; }
+
+/* Sirf corners ko gol (Round) karna */
+.full-history-table td:first-child {
+    border-radius: 15px 0 0 15px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.full-history-table td:last-child {
+    border-radius: 0 15px 15px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effect: Jab mouse row par jaye */
+.full-history-table tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.01); /* Halka sa bada hoga */
+    cursor: pointer;
+}
+
+
+
+
+
+/* profile section 
+
+
+
+
+
+
+*/
+/* 1. Modal Box Fix */
+/* 1. Modal Container - Dark & Premium */
+.profile-update-box {
+    background: #12121b !important;
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    padding: 25px !important;
+    max-width: 450px !important;
+    width: 95% !important;
+    border-radius: 20px !important;
+    color: white !important;
+}
+
+/* 2. Scroll Area - No Horizontal Scroll */
+.modal-scroll-area {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden !important; /* Side scroll khatam */
+    padding-right: 10px;
+}
+
+/* 3. Input Group - "Chipka-Chipka" Khatam */
+.input-group {
+    display: flex !important;
+    flex-direction: column !important; /* Label upar, Input niche */
+    gap: 8px !important;
+    margin-bottom: 20px !important;
+    text-align: left !important;
+}
+
+.input-group label {
+    font-size: 11px !important;
+    color: #00d2ff !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 12px 15px !important;
+    border-radius: 10px !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* 4. Section Divider & Text */
+.section-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 15px 0;
+}
+
+.profile-section h4 {
+    font-size: 13px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 5. Buttons Styling */
+.modal-footer-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid rgba(0, 210, 255, 0.4);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.logout-btn-mini {
+    background: rgba(255, 60, 115, 0.1) !important;
+    color: #ff3c73 !important;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+/* --- 1. MODAL OVERLAY (Background Parda) --- */
+.modal-overlay {
+    display: none; /* Default band rahega */
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px); /* Premium Glass Blur */
+    z-index: 10000 !important;
+}
+
+/* --- 2. THE MASTER BOX (Centered) --- */
+.profile-update-box {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* Ekdam center logic */
+    
+    background: #12121b !important; /* Dark Premium */
+    width: 90% !important;
+    max-width: 450px !important;
+    max-height: 85vh; /* Screen se bahar na jaye */
+    border-radius: 24px !important;
+    padding: 30px !important;
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 1) !important;
+    color: white !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 3. SCROLL AREA (No horizontal scroll) --- */
+.modal-scroll-area {
+    overflow-y: auto;
+    overflow-x: hidden !important;
+    padding-right: 10px;
+    margin-top: 15px;
+    flex-grow: 1; /* Space manage karega */
+}
+
+/* Premium Scrollbar */
+.modal-scroll-area::-webkit-scrollbar { width: 5px; }
+.modal-scroll-area::-webkit-scrollbar-thumb {
+    background: #00d2ff;
+    border-radius: 10px;
+}
+
+/* --- 4. INPUTS & LABELS (Vertical Alignment) --- */
+.input-group {
+    display: flex !important;
+    flex-direction: column !important; /* Label upar, input niche */
+    gap: 8px !important;
+    margin-bottom: 20px !important;
+    text-align: left !important;
+}
+
+.input-group label {
+    font-size: 11px !important;
+    color: #00d2ff !important;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 12px 15px !important;
+    border-radius: 12px !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* --- 5. BUTTONS (Fixed at bottom) --- */
+.modal-footer-btns {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*  meter recharge */
+/* Link ke default blue color aur underline ko hatane ke liye */
+a {
+    text-decoration: none !important;
+    display: block; /* Taaki poora card link ki tarah behave kare */
+}
+
+.card.blue {
+    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%) !important;
+    cursor: pointer;
+    transition: 0.3s transform ease;
+}
+
+.card.blue:hover {
+    transform: scale(1.03); /* Hover karne par card thoda bada dikhega */
+}

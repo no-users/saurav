@@ -1,0 +1,167 @@
+/* --- 1. Global Reset --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background: #f0f2f5; 
+    font-family: 'Poppins', sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 50px 0; 
+}
+
+/* --- 2. Master Certificate Container (Gold Border) --- */
+.cert-container {
+    width: 850px; 
+    height: 600px;
+    background: white; 
+    padding: 25px; /* Gold aur Blue border ke beech ka gap */
+    border: 15px solid #d4af37; /* Royal Gold Border */
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+/* --- 3. Inner Border (Navy Blue) --- */
+.inner-border {
+    border: 5px solid #1a237e; /* Deep Navy */
+    height: 100%; 
+    padding: 40px; /* Text ko border se door rakhne ke liye */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    text-align: center;
+    position: relative;
+}
+
+/* --- 4. Watermark Logic --- */
+.watermark {
+    position: absolute; 
+    top: 55%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-35deg);
+    font-size: 90px; 
+    font-weight: 700;
+    color: rgba(26, 35, 126, 0.03); /* Ekdam halka blue */
+    white-space: nowrap; 
+    z-index: 0; 
+    pointer-events: none;
+}
+
+/* --- 5. Typography (Hierarchy) --- */
+header { position: relative; z-index: 1; }
+.cert-logo { max-height: 60px; margin-bottom: 10px; }
+h1 { 
+    font-size: 36px; 
+    color: #1a237e; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    font-weight: 700; 
+}
+
+h2 { 
+    font-family: 'Pinyon Script', cursive; 
+    font-size: 65px; 
+    color: #c5a028; 
+    margin: 15px 0; 
+}
+
+h3 { 
+    color: #1a237e; 
+    font-size: 20px; 
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    font-weight: 600;
+}
+
+.agent-pill { 
+    background: #1a237e; 
+    color: white; 
+    padding: 5px 18px; 
+    border-radius: 50px; 
+    font-size: 13px; 
+    display: inline-block; 
+    margin: 15px 0; 
+}
+
+.description { 
+    font-size: 13px; 
+    color: #777; 
+    line-height: 1.6; 
+    max-width: 85%; 
+    margin: 0 auto; 
+    font-style: italic; 
+}
+
+/* --- 6. Footer & Signatures --- */
+footer { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-end; 
+    margin-top: 20px; 
+    z-index: 1;
+}
+
+.sig-block p { 
+    font-size: 12px; 
+    font-weight: 700; 
+    color: #1a237e; 
+    border-top: 1px solid #ddd; 
+    padding-top: 5px; 
+    text-transform: uppercase;
+}
+
+.date-block p { font-size: 14px; font-weight: 600; color: #444; }
+
+/* --- 7. Print Button Styling --- */
+.print-btn {
+    margin-top: 30px; 
+    background: #1a237e; 
+    color: white; 
+    border: none;
+    padding: 12px 30px; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.print-btn:hover { background: #283593; transform: translateY(-2px); }
+
+/* --- 8. Printing Magic --- */
+@media print {
+    .print-btn { display: none; }
+    body { padding: 0; background: white; }
+    .cert-container { margin: 0; box-shadow: none; }
+}
+
+/*   close button */
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05); /* Halka glass effect */
+    border-radius: 50%; /* Ekdam gol */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #ff3c73;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Premium smooth timing */
+    border: 1px solid rgba(255, 60, 115, 0.2);
+    z-index: 10;
+}
+
+/* Hover Effect: Jab mouse upar jaye */
+.close-btn:hover {
+    background: #ff3c73;
+    color: white;
+    transform: rotate(90deg) scale(1.1); /* Ghumega aur thoda bada hoga */
+    box-shadow: 0 0 15px rgba(255, 60, 115, 0.5); /* Glowing effect */
+}
+
+/* Active Effect: Jab button dabayein */
+.close-btn:active {
+    transform: scale(0.9); /* Dabne par chota hoga (Real button feel) */
+}

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna agency</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">APNA AGENCY</div>
+        <div class="sub-nav">
+            <span id="greeting">namaste!</span> <span>Dashboard</span>
+            <span  id="live-clock">Loading...</span>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search any service">
+
+            </div>
+    
+          <div class="nav-tools">
+           
+               <button class="add-money-btn">+ Add Money</button>
+            <div class="wallet-section" id="balanceBtn" style="cursor: pointer;">
+          <span class="wallet-balance">💰 ₹00</span>
+          </div>
+
+<div id="historyModal" class="modal-overlay">
+    <div class="modal-box statement-box">
+        <span class="close-btn" id="closeHistory">&times;</span>
+        
+        <div class="modal-header">
+            <h3>📊 Transaction Statement</h3>
+            <button id="downloadBtn" class="download-btn"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="searchUTR" placeholder="Search UTR...">
+            <input type="date" id="fromDate">
+            <input type="date" id="toDate">
+            <button id="applyFilters" class="apply-btn">Search</button>
+        </div>
+
+        <div class="table-scroll">
+            <table class="premium-table">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Amount</th>
+                        <th>UTR Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="fullHistoryTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+              <div class="user-profile" id="profileSettingsBtn" title="Click to Update Profile">
+    <div class="profile-img-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User">
+            </div>
+            <div class="user-info">
+        <span id="displayUserRole">Admin User</span>
+        <small>Agent ID:  <span id="displayAgentID">1024</span></small> </div>
+          </div>
+          <button id="theme-toggle" class="theme-btn">
+         <i id="theme-icon" class="fas fa-moon"></i> </button>
+        </div>
+       </div>
+        
+    </nav>
+    <div class="news-ticker">
+    <div class="ticker-title">LATEST UPDATES</div>
+    <div class="ticker-content">
+        <p>📢 NSDL Service is live! | Add ₹500 get cashback... </p> 
+    </div>
+    </div>
+
+    <div class="sub-nav">
+        <span>Dashboard</span>
+        <span>User Manage ▼</span>
+        <span>Offline PAN ▼</span>
+        <span>Find PAN ▼</span>
+        
+        
+    
+        
+    </div>
+
+    <div id="addMoneyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeAddMoney">&times;</span>
+        
+        <h3>💳 Add Money to Wallet</h3>
+
+        <div class="qr-section">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=YOUR_ID" alt="QR">
+            <p style="font-size: 12px; color: #bbb;">Scan & Pay via UPI</p>
+            <div class="upi-id-box">
+          <span id="upiId">apnaagency@ybl</span>
+          <i class="fas fa-copy" id="copyUpi" title="Copy ID"></i>
+         </div>
+            
+        </div>
+
+        <div class="input-box" style="text-align: left; margin-top: 20px;">
+            <label style="color: #00d2ff; font-size: 13px;">Amount (₹)</label>
+            <input type="number" id="depositAmount" placeholder="Enter Amount" style="width: 100%; padding: 10px; margin: 5px 0 15px; border-radius: 5px; border: 1px solid #444; background: #222; color: white;">
+            
+            <label style="color: #00d2ff; font-size: 13px;">UTR Number</label>
+            <input type="text" id="utrNumber" placeholder="Enter 12 Digit ID" style="width: 100%; padding: 10px; margin: 5px 0 20px; border-radius: 5px; border: 1px solid #444; background: #222; color: white;">
+        </div>
+
+        <button id="submitDeposit" class="btn-submit">
+      <i class="fas fa-paper-plane"></i> Submit Request
+             </button>
+    </div>
+</div>
+   
+
+    <div class="dashboard-container">
+        
+        <div class="service-grid">
+            
+            <div class="card purple">
+                <div class="icon-section">👤</div>
+                <div class="text-section">
+                    <h4>User Complaints</h4>
+                    <p>0</p>
+                </div>
+            </div>
+
+            <div class="card pink">
+                <div class="icon-section">📂</div>
+                <div class="text-section">
+                    <h4>Complaints History</h4>
+                    <p>100</p>
+                </div>
+            </div>
+
+            <div class="card teal">
+                <div class="icon-section">🏦</div>
+                <div class="text-section">
+                    <h4>ACCOUNT OPENING</h4>
+                    <p>0 Bal NSDL Payment Bank</p>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="icon-section">💳</div>
+                <div class="text-section">
+                    <h4>Add Money</h4>
+                    <p>QR Scan</p>
+                </div>
+            </div>
+
+            <div class="card orange">
+                <div class="icon-section">🆔</div>
+                <div class="text-section">
+                    <h4>NSDL EKYC PAN</h4>
+                    <p>Without Sign(New-CR)</p>
+                </div>
+            </div>
+
+
+            
+
+            <div class="card light-blue">
+                <div class="icon-section">🔍</div>
+                <div class="text-section">
+                    <h4>Find PAN</h4>
+                    <p>Instant Service</p>
+                </div>
+            </div>
+
+            <div class="card dark-green">
+                <div class="icon-section">🚗</div>
+                <div class="text-section">
+                    <h4>Vehicle Insurance</h4>
+                    <p>Bike & Car Insurance</p>
+                </div>
+            </div>
+
+            <div class="card yellow">
+                <div class="icon-section">🎓</div>
+                <div class="text-section">
+                    <h4>Training</h4>
+                    <p>Video Tutorials</p>
+                </div>
+            </div>
+            <div class="card purple">
+                <div class="icon-section">👤</div>
+                <div class="text-section">
+                    <h4>User Complaints</h4>
+                    <p>0</p>
+                </div>
+            </div>
+
+            <div class="card pink">
+                <div class="icon-section">📂</div>
+                <div class="text-section">
+                    <h4>Complaints History</h4>
+                    <p>100</p>
+                </div>
+            </div>
+
+            <div class="card teal">
+                <div class="icon-section">🏦</div>
+                <div class="text-section">
+                    <h4>ACCOUNT OPENING</h4>
+                    <p>0 Bal NSDL Payment Bank</p>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="icon-section">💳</div>
+                <div class="text-section">
+                    <h4>Add Money</h4>
+                    <p>QR Scan</p>
+                </div>
+            </div>
+
+            <div class="card orange">
+                <div class="icon-section">🆔</div>
+                <div class="text-section">
+                    <h4>NSDL EKYC PAN</h4>
+                    <p>Without Sign(New-CR)</p>
+                </div>
+            </div>
+
+
+            
+
+            <div class="card light-blue">
+                <div class="icon-section">🔍</div>
+                <div class="text-section">
+                    <h4>Find PAN</h4>
+                    <p>Instant Service</p>
+                </div>
+            </div>
+
+            <div class="card dark-green">
+                <div class="icon-section">🚗</div>
+                <div class="text-section">
+                    <h4>Vehicle Insurance</h4>
+                    <p>Bike & Car Insurance</p>
+                </div>
+            </div>
+
+            <div class="card yellow">
+                <div class="icon-section">🎓</div>
+                <div class="text-section">
+                    <h4>Training</h4>
+                    <p>Video Tutorials</p>
+                </div>
+            </div>
+            <a href="https://wss.nbpdcl.co.in/cportal/#/guest/secure/searchbill" 
+   target="_blank" 
+   style="text-decoration: none;">
+   
+    <div class="card blue">
+        <div class="icon-section">⚡</div>
+        <div class="text-section">
+            <h4>Meter Recharge</h4>
+            <p>Pay NBPDCL Bill</p>
+        </div>
+    </div>
+</a>
+            
+
+            
+            
+            
+
+        </div>
+    </div>
+    <div class="user-history-card">
+    <div class="card-header">
+        <h3><i class="fas fa-history"></i> My Recent Deposits</h3>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>UTR Number</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="userDepositTable">
+                </tbody>
+        </table>
+    </div>
+</div>
+    
+    
+    <div id="serviceModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close-btn">&times;</span>
+        <h2 id="modalTitle" >Service Detail</h2>
+        <p id="modalDesc">Yahan aapke download links aur form ki jankari aayegi.</p>
+        <button class="action-btn">Download Now</button>
+    </div>
+   </div> 
+
+
+   <div id="profileModal" class="modal-overlay">
+    <div class="modal-box profile-update-box">
+        <span class="close-btn" id="closeProfile">&times;</span>
+        
+        <div class="modal-header-mini">
+    <h3><i class="fas fa-cog" style="color: #00d2ff;"></i> Profile & Settings</h3>
+    <p style="color: #a3aed0; font-size: 12px;">Manage your account details</p>
+</div>
+
+        <div class="modal-scroll-area">
+            <div class="profile-section">
+                <h4><i class="fas fa-user-circle"></i> Personal Info</h4>
+                <div class="input-group">
+             <label>Full Name</label>
+               <input type="text" id="updateName" placeholder="Enter your full name">
+              </div>
+                <div class="input-group">
+                    <label>Mobile Number</label>
+                    <input type="number" id="updateMobile" placeholder="Enter Mobile">
+                </div>
+                <div class="input-group">
+                    <label>Shop Name</label>
+                    <input type="text" id="updateShop" placeholder="Enter Shop Name">
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="profile-section">
+                <h4><i class="fas fa-id-card"></i> KYC & Documents</h4>
+                <div class="doc-row">
+                    <span>PAN: <strong id="panDisplay">ABCDE****F</strong></span>
+                    <span>Aadhaar: <strong id="aadhaarDisplay">**** **** 1234</strong></span>
+                </div>
+                <button  class="btn-outline" id="viewCertificate">
+                    <i class="fas fa-certificate"></i> View My Certificate
+                </button>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="profile-section">
+                <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                <button class="btn-outline" id="changePassBtn">
+                    <i class="fas fa-key"></i> Change Login Password
+                </button>
+            </div>
+        </div>
+
+        <div class="modal-footer-btns">
+            <button id="saveProfileBtn" class="btn-submit">Update All</button>
+            <button id="logoutBtn" class="logout-btn-mini">
+                <i class="fas fa-sign-out-alt"></i> Logout Session
+            </button>
+        </div>
+    </div>
+</div>
+
+ </div> <script type="module">
+        // 1. Firebase ke tools mangwaye (Import)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 2. Aapka secret configuration
+      const firebaseConfig = {
+  apiKey: "AIzaSyBWyMJvt0OpejwkFEstI_NQToHmMBGwkbE",
+  authDomain: "agency-136b6.firebaseapp.com",
+  projectId: "agency-136b6",
+  // YE WALI LINE ZAROORI HAI
+  databaseURL: "https://agency-136b6-default-rtdb.firebaseio.com", 
+  storageBucket: "agency-136b6.firebasestorage.app",
+  messagingSenderId: "503663950718",
+  appId: "1:503663950718:web:8a30b18039c279ffac112f"
+};
+
+        // 3. Firebase ko chalu kiya
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // 4. Asli Balance nikalne ka rasta (Reference)
+        const balanceRef = ref(database, 'wallet/balance');
+        
+        // 5. Database par nazar rakhna (Listener)
+        onValue(balanceRef, (snapshot) => {
+            const data = snapshot.val();
+            // Agar database mein data mil jaye toh use screen par dikhao
+            if (data !== null) {
+                document.querySelector('.wallet-balance').innerText = "💰 ₹" + data;
+            }
+        });
+    </script>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Authorization Certificate | Apna Agency</title>
+    <link rel="stylesheet" href="ceartificate.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    
+</head>
+<body>
+
+    <div class="cert-container" id="printableArea">
+        <div class="inner-border">
+            <div class="watermark">APNA AGENCY</div>
+            
+            <header>
+                <img src="logo.png" alt="Logo" class="cert-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                <h1>Certificate of Authorization</h1>
+            </header>
+
+            <section class="cert-body">
+                <p>This is to certify that</p>
+                <h2 id="userName">Loading Name...</h2>
+                <p>has been officially appointed as an authorized</p>
+                <h3 id="userRole">Loading...</h3>
+                <div class="agent-pill">Agent ID: ****<span id="agentID">0000</span></div>
+                <p class="description">Authorized to provide NSDL PAN Services, AEPS, Insurance, and Digital Banking operations under the governance of Apna Agency India.</p>
+            </section>
+
+            <footer>
+                <div class="date-block">
+                    <p id="issueDate">Date: Loading...</p>
+                </div>
+                <div class="sig-block">
+                    <img src="signature.png" alt="Sign" class="sig-image" onerror="this.style.display='none'">
+                    <p>Managing Director</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <button onclick="window.print()" class="print-btn"><i class="fas fa-print"></i> Download / Print Certificate</button>
+    <footer>
+        <div class="action-btns print-hide">
+    <button onclick="window.print()" class="print-btn">
+        <i class="fas fa-print"></i> Print PDF
+    </button>
+    
+    <button id="closeCertBtn" class="close-tab-btn">
+        <i class="fas fa-times"></i> Close Window
+    </button>
+</div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 🔥 IMPORTANT: Apni Firebase Config yahan paste karein
+       const firebaseConfig = {
+    apiKey: "AIzaSyBWyMJvt0OpejwkFEstI_NQToHmMBGwkbE",
+    authDomain: "agency-136b6.firebaseapp.com",
+    projectId: "agency-136b6",
+    databaseURL: "https://agency-136b6-default-rtdb.firebaseio.com", 
+    storageBucket: "agency-136b6.firebasestorage.app",
+    messagingSenderId: "503663950718",
+    appId: "1:503663950718:web:8a30b18039c279ffac112f"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Multi-User Data Logic
+        
+            if (user) {
+                // User login hai, uska UID use karein
+                try {
+                    const snapshot = await get(ref(db, `users/${user.uid}`));
+                    
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        
+                        // 1. Name & Role Update
+                        document.getElementById('userName').innerText = data.name || "Customer Name";
+                        
+                        let role = data.role || "Retailer";
+                        document.getElementById('userRole').innerText = role.length > 5 ? role.slice(0, 5).toUpperCase() + "." : role.toUpperCase();
+                        
+                        // 2. Masked Agent ID (Last 4 digits)
+                        const fullID = data.agentID || "00000000";
+                        document.getElementById('agentID').innerText = fullID.slice(-4);
+                        
+                        // 3. Issue Date (DB se ya aaj ki date)
+                        const dateToDisplay = data.issueDate || new Date().toLocaleDateString('en-IN');
+                        document.getElementById('issueDate').innerText = "Issue Date: " + dateToDisplay;
+                        
+                    } else {
+                        document.getElementById('userName').innerText = "Data Not Found";
+                    }
+                } catch (error) {
+                    console.error("Database Error:", error);
+                }
+            }
+        ;
+    </script>
+</body>
+</html>
